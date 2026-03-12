@@ -1,0 +1,39 @@
+﻿<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="RecipeApp.Pages.EditRecipePage">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Edit Recipe" FontSize="28" HorizontalOptions="Center" />
+            
+            <Entry x:Name="recipeNameEntry" Text="{Binding RecipeName, Mode=TwoWay}" 
+                   Placeholder="Recipe Name" />
+
+            <Entry x:Name="descriptionEntry" Text="{Binding Description, Mode=TwoWay}" 
+                   Placeholder="Description" MaxLength="200" />
+
+            <Entry x:Name="ingredientsEntry" Text="{Binding Ingredients, Mode=TwoWay}" 
+                   Placeholder="Ingredients (comma separated)" />
+
+            <Entry x:Name="stepsEntry" Text="{Binding Steps, Mode=TwoWay}" 
+                   Placeholder="Steps (summary)" Keyboard="Default" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Entry x:Name="prepTimeEntry" Text="{Binding PrepTime, Mode=TwoWay}" 
+                       Placeholder="Prep Time (mins)"
+                       Keyboard="Numeric"
+                       WidthRequest="125" />
+                <Entry x:Name="cookTimeEntry" Text="{Binding CookTime, Mode=TwoWay}"
+                       Placeholder="Cook Time (mins)"
+                       Keyboard="Numeric"
+                       WidthRequest="125" />
+            </HorizontalStackLayout>
+
+            <Button Text="Save Changes" 
+                    Command="{Binding SaveRecipeCommand}" />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+            
+</ContentPage>

@@ -13,15 +13,45 @@ public partial class RecipesViewModel : ObservableObject
 {
     private readonly RecipeDatabase _database;
 
+    // Stores the full unfiltered list from the database for search/filtering
+    private List<Recipe> _allRecipes = new();
+
     [ObservableProperty]
     private ObservableCollection<Recipe> recipes = new();
 
     [ObservableProperty]
     private bool isLoading = false;
 
+    [ObservableProperty]
+    private string searchText = string.Empty;
+
     public RecipesViewModel(RecipeDatabase database)
     {
         _database = database;
+    }
+
+    // Filter recipes whenever the search text changes using LINQ
+    partial void OnSearchTextChanged(string value)
+    {
+        FilterRecipes(value);
+    }
+
+    // Filter the recipes list based on the search text
+    private void FilterRecipes(string searchTerm)
+    {
+        recipes.Clear();
+
+        var filtered = string.IsNullOrWhiteSpace(searchTerm)
+            ? _allRecipes
+            : _allRecipes.Where(r => r.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                     r.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                     r.Ingredients.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                         .ToList();
+
+        foreach (var recipe in filtered)
+        {
+            recipes.Add(recipe);
+        }
     }
 
     // Load all recipes from database when page is initialized
@@ -34,11 +64,11 @@ public partial class RecipesViewModel : ObservableObject
             
             var recipeList = await _database.GetAllRecipesAsync();
             
-            recipes.Clear();
-            foreach (var recipe in recipeList)
-            {
-                recipes.Add(recipe);
-            }
+            // Store the full list for search filtering
+            _allRecipes = recipeList;
+            
+            // Apply current search filter (or show all if no search text)
+            FilterRecipes(searchText);
         }
         catch (Exception ex)
         {
@@ -48,6 +78,16 @@ public partial class RecipesViewModel : ObservableObject
         {
             isLoading = false;
         }
+    }
+
+    // Navigate to edit page for a specific recipe (used by swipe action)
+    [RelayCommand]
+    public async Task EditRecipeAsync(Recipe recipe)
+    {
+        if (recipe == null)
+            return;
+
+        await Shell.Current.GoToAsync($"{nameof(Pages.EditRecipePage)}?RecipeId={recipe.Id}");
     }
 
     // Delete a specific recipe
@@ -66,6 +106,7 @@ public partial class RecipesViewModel : ObservableObject
                 return;
 
             await _database.DeleteRecipeAsync(recipe.Id);
+            _allRecipes.Remove(recipe);
             recipes.Remove(recipe);
 
             await Application.Current.MainPage.DisplayAlert("Deleted", "Recipe removed successfully!", "OK");
@@ -89,7 +130,9 @@ public partial class RecipesViewModel : ObservableObject
                 return;
 
             await _database.DeleteAllRecipesAsync();
+            _allRecipes.Clear();
             recipes.Clear();
+            searchText = string.Empty;
 
             await Application.Current.MainPage.DisplayAlert("Cleared", "All recipes have been removed!", "OK");
         }

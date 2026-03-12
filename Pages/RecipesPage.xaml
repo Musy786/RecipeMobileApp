@@ -4,15 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="RecipeApp.Pages.RecipesPage">
     
-    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20">
         
         <Label Text="Your Recipes"
                FontSize="28"
                HorizontalOptions="Center"
                Grid.Row="0"
-               Margin="0,0,0,15" />
+               Margin="0,0,0,5" />
         
-        <CollectionView ItemsSource="{Binding Recipes}" Grid.Row="1">
+        <!--Search bar for filtering recipes by name-->
+        <SearchBar Placeholder="Search recipes..."
+                   Text="{Binding SearchText, Mode=TwoWay}"
+                   Grid.Row="1"
+                   Margin="0,0,0,10" />
+        
+        <CollectionView ItemsSource="{Binding Recipes}" Grid.Row="2"
+                        SelectionMode="None">
             
             <!--For when there are no recipes added yet-->
             <CollectionView.EmptyView>
@@ -26,6 +33,15 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit"
+                                           BackgroundColor="DarkOrange"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditRecipeCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
@@ -59,9 +75,8 @@
             TextColor="White"
             BackgroundColor="DarkRed"
             Margin="8"
-            Grid.Row="2"
+            Grid.Row="3"
             Command="{Binding ClearAllRecipesCommand}"/>
-        
     </Grid>
     
 </ContentPage>

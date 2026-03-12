@@ -25,11 +25,13 @@ public static class MauiProgram
         // Transient lifetime for ViewModels since they are page-specific and can be recreated each time the page is navigated to
         builder.Services.AddTransient<RecipesViewModel>();
         builder.Services.AddTransient<AddRecipeViewModel>();
+        builder.Services.AddTransient<EditRecipeViewModel>();
 
         // Register Pages
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddTransient<RecipesPage>();
         builder.Services.AddTransient<AddRecipePage>();
+        builder.Services.AddTransient<EditRecipePage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
