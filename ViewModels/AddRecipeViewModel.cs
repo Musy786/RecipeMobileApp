@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RecipeApp.Models;
+using RecipeApp.Core.Helpers;
+using RecipeApp.Core.Models;
 using RecipeApp.Storage;
 
 namespace RecipeApp.ViewModels;
@@ -47,14 +48,13 @@ public partial class AddRecipeViewModel : ObservableObject
     {
         try
         {
-            // Validation - checking for empty fields
-            if (string.IsNullOrWhiteSpace(recipeName) ||
-                string.IsNullOrWhiteSpace(description) ||
-                string.IsNullOrWhiteSpace(ingredients) ||
-                string.IsNullOrWhiteSpace(steps))
+            // Validation using centralised RecipeValidator
+            var errors = RecipeValidator.Validate(recipeName, description, ingredients, steps, prepTime, cookTime);
+
+            if (errors.Count > 0)
             {
-                await Application.Current.MainPage.DisplayAlert("Missing Information!",
-                    "Please fill in all fields.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Validation Error",
+                    string.Join("\n", errors), "OK");
                 return;
             }
 

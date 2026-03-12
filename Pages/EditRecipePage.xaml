@@ -1,24 +1,31 @@
-﻿<ContentPage
+﻿
+<ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="RecipeApp.Pages.EditRecipePage">
+    x:Class="RecipeApp.Pages.EditRecipePage"
+    Title="Edit Recipe">
     
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Edit Recipe" FontSize="28" HorizontalOptions="Center" />
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="Edit Recipe" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
             
+            <Label Text="Recipe Name" FontSize="13" FontAttributes="Bold" TextColor="Gray" />
             <Entry x:Name="recipeNameEntry" Text="{Binding RecipeName, Mode=TwoWay}" 
-                   Placeholder="Recipe Name" />
+                   Placeholder="e.g. Spaghetti Bolognese" MaxLength="100" />
 
+            <Label Text="Description" FontSize="13" FontAttributes="Bold" TextColor="Gray" />
             <Entry x:Name="descriptionEntry" Text="{Binding Description, Mode=TwoWay}" 
-                   Placeholder="Description" MaxLength="200" />
+                   Placeholder="A short description of the dish" MaxLength="200" />
 
+            <Label Text="Ingredients" FontSize="13" FontAttributes="Bold" TextColor="Gray" />
             <Entry x:Name="ingredientsEntry" Text="{Binding Ingredients, Mode=TwoWay}" 
-                   Placeholder="Ingredients (comma separated)" />
+                   Placeholder="Comma separated (e.g. pasta, mince, tomato)" />
 
+            <Label Text="Steps" FontSize="13" FontAttributes="Bold" TextColor="Gray" />
             <Entry x:Name="stepsEntry" Text="{Binding Steps, Mode=TwoWay}" 
-                   Placeholder="Steps (summary)" Keyboard="Default" />
+                   Placeholder="Brief step summary" Keyboard="Default" />
 
+            <Label Text="Time (minutes)" FontSize="13" FontAttributes="Bold" TextColor="Gray" />
             <HorizontalStackLayout Spacing="10">
                 <Entry x:Name="prepTimeEntry" Text="{Binding PrepTime, Mode=TwoWay}" 
                        Placeholder="Prep Time (mins)"
@@ -31,7 +38,12 @@
             </HorizontalStackLayout>
 
             <Button Text="Save Changes" 
-                    Command="{Binding SaveRecipeCommand}" />
+                    Command="{Binding SaveRecipeCommand}"
+                    BackgroundColor="DarkOrange"
+                    TextColor="White"
+                    CornerRadius="8"
+                    FontSize="16"
+                    Margin="0,10,0,0" />
             
         </VerticalStackLayout>
     </ScrollView>

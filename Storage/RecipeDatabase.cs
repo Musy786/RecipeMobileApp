@@ -1,5 +1,5 @@
 ﻿using SQLite;
-using RecipeApp.Models;
+using RecipeApp.Core.Models;
 
 namespace RecipeApp.Storage;
 
@@ -16,7 +16,7 @@ public class RecipeDatabase
     {
     }
 
-    // Initialize the database connection and create tables if needed
+    // Initialise the database connection and create tables
     public async Task InitializeAsync()
     {
         if (_database is not null)

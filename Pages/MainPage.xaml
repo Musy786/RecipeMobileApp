@@ -5,20 +5,36 @@
              Title="Home">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+            
             <Label Text="Welcome to RecipeApp!"
-                   FontSize="28"
+                   FontSize="30"
+                   FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
-            <Label Text="Start creating or browsing your favourite recipes."
-                   FontSize="18"
-                   HorizontalOptions="Center" />
+            <Label Text="Your personal recipe collection."
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="Gray" />
+
+            <BoxView HeightRequest="1" Color="{StaticResource Gray200}" Margin="20,10" />
 
             <Button Text="View All Recipes"
-                    Clicked="OnViewAllRecipesClicked" />
+                    Clicked="OnViewAllRecipesClicked"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="8"
+                    FontSize="16"
+                    HeightRequest="50" />
 
             <Button Text="Add New Recipe" 
-                    Clicked="OnAddNewRecipeClicked" />
+                    Clicked="OnAddNewRecipeClicked"
+                    BackgroundColor="{StaticResource Tertiary}"
+                    TextColor="White"
+                    CornerRadius="8"
+                    FontSize="16"
+                    HeightRequest="50" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

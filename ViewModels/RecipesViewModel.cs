@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RecipeApp.Models;
+using RecipeApp.Core.Models;
 using RecipeApp.Storage;
 
 namespace RecipeApp.ViewModels;
@@ -54,7 +54,7 @@ public partial class RecipesViewModel : ObservableObject
         }
     }
 
-    // Load all recipes from database when page is initialized
+    // Load all recipes from database when page is initialised
     [RelayCommand]
     public async Task LoadRecipesAsync()
     {

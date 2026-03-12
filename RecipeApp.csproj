@@ -72,4 +72,24 @@
       </Compile>
     </ItemGroup>
 
+    <!--Exclude the test project folder from compilation in the main project-->
+    <ItemGroup>
+        <Compile Remove="RecipeApp.Tests\**" />
+        <Content Include="RecipeApp.Core\RecipeApp.Core.csproj" />
+        <None Remove="RecipeApp.Tests\**" />
+        <Content Remove="RecipeApp.Tests\**" />
+        <EmbeddedResource Remove="RecipeApp.Tests\**" />
+    </ItemGroup>
+
+    <!--Exclude the Core project folder from compilation in the main project (referenced as a project)-->
+    <ItemGroup>
+        <Compile Remove="RecipeApp.Core\**" />
+        <None Remove="RecipeApp.Core\**" />
+        <Content Remove="RecipeApp.Core\**" />
+        <EmbeddedResource Remove="RecipeApp.Core\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="RecipeApp.Core\RecipeApp.Core.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using RecipeApp.Models;
+﻿using RecipeApp.Core.Models;
 using RecipeApp.ViewModels;
 
 namespace RecipeApp.Pages;

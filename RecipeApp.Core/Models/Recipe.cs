@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace RecipeApp.Models
+namespace RecipeApp.Core.Models
 {
     public class Recipe
     {
